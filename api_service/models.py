@@ -26,8 +26,10 @@ class ProductModel(models.Model):
 
     stock = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
 
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    last_updated_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, \
+    related_name='product_creations')
+    last_updated_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, \
+    related_name='product_updations')
 
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
