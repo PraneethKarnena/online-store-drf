@@ -26,12 +26,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 PLATFORM_ENV = os.environ.get('PLATFORM_ENV')
 
-if PLATFORM_ENV == 'PRD':
-    DEBUG = False
-    ALLOWED_HOSTS = ['*.herokuapp.com']
-else:
+if PLATFORM_ENV == 'DEV':
     DEBUG = True
     ALLOWED_HOSTS = ['*']
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = ['*.herokuapp.com']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework' # DRF for developing API
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Authentication for DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
