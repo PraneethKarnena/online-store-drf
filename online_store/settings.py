@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'api_service.apps.ApiServiceConfig', # API core service
     'rest_framework' # DRF for developing API
 ]
 
