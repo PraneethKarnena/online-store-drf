@@ -8,4 +8,5 @@ urlpatterns = [
     path('authenticate/', views.authenticate), # Endpoint for obtaining Auth token
 
     path('category/', views.CategoryListView.as_view()), # Endpoint for creating and listing categories
+    path('category-detail/<int:pk>/', views.CategoryDetailView.as_view()), # Endpoint for RUD a single cat
 ]

@@ -52,3 +52,15 @@ class CategoryListView(generics.ListCreateAPIView):
 
     queryset = models.ProductCategoryModel.objects.all()
     serializer_class = serializers.ProductCategorySerializer
+
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    """
+    Read/Update/Delete a single product category
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    queryset = models.ProductCategoryModel.objects.all()
+    serializer_class = serializers.ProductCategorySerializer
