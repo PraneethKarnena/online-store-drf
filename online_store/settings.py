@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'api_service.apps.ApiServiceConfig', # API core service
-    'rest_framework' # DRF for developing API
+
+    'rest_framework', # DRF for developing API
+    'rest_framework.authtoken', # For implementing Token authentication
 ]
 
 MIDDLEWARE = [

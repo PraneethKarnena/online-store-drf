@@ -2,14 +2,39 @@
 Contains all the business logic for the API service
 """
 
-from django.shortcuts import render
 from django.http import JsonResponse
+from django.contrib.auth import authenticate as django_authenticate
 
+from rest_framework.decorators import api_view
+from rest_framework.authtoken.models import Token
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework import status
+from rest_framework.response import Response
 
 from . import models
 from . import serializers
+
+
+@api_view(['POST'])
+def authenticate(request):
+    """
+    Obtain Token by authenticating against username and password
+    """
+    try:
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = django_authenticate(username=username, password=password)
+        if user is not None:
+            token, _ = Token.objects.get_or_create(user=user)
+            data = {'success': True, 'data': token.key}
+            return Response(data=data, status=status.HTTP_200_OK)
+        else:
+            raise Exception('Invalid credentials!')
+    except Exception as e:
+        data = {'success': False, 'message': f'Error: {str(e)}'}
+        return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
 
 
 def home_view(request):
