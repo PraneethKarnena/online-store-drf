@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+from api_service.views import home_view
 
+urlpatterns = [
+    path('', home_view),
+    path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')), # Login/Logout URLs for DRF browsable API
+
+    path('api/', include('api_service.urls')), # Main URL endpoints of the API
 ]
