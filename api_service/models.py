@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class ProductCategoryModel(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     code = models.CharField(max_length=6, null=False, blank=False, unique=True)
+    description = models.TextField(null=True, blank=True)
 
     class Meta:
         ordering = ['code']
