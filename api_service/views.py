@@ -80,3 +80,17 @@ class ProductListView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, last_updated_by=self.request.user)
+
+
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Read/Update/Delete a single product
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    queryset = models.ProductModel.objects.all()
+    serializer_class = serializers.ProductSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(ast_updated_by=self.request.user)
