@@ -32,8 +32,8 @@ class ProductModel(models.Model):
     last_updated_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, \
     related_name='product_updations')
 
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-updated_at']
