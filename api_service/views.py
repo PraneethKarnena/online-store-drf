@@ -5,7 +5,7 @@ Contains all the business logic for the API service
 from django.http import JsonResponse
 from django.contrib.auth import authenticate as django_authenticate
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework import generics
 from rest_framework import permissions
@@ -17,6 +17,7 @@ from . import serializers
 
 
 @api_view(['POST'])
+@permission_classes([permissions.AllowAny,])
 def authenticate(request):
     """
     Obtain Token by authenticating against username and password
@@ -64,3 +65,18 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = models.ProductCategoryModel.objects.all()
     serializer_class = serializers.ProductCategorySerializer
+
+
+class ProductListView(generics.ListCreateAPIView):
+
+    """
+    List all products or create one
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    queryset = models.ProductModel.objects.all()
+    serializer_class = serializers.ProductSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user, last_updated_by=self.request.user)
