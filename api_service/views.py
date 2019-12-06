@@ -11,6 +11,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import filters
 
 from . import models
 from . import serializers
@@ -51,6 +52,10 @@ class CategoryListView(generics.ListCreateAPIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
+    # Search functionality
+    search_fields = ['name', 'code', 'description']
+    filter_backends = (filters.SearchFilter,)
+
     queryset = models.ProductCategoryModel.objects.all()
     serializer_class = serializers.ProductCategorySerializer
 
@@ -74,6 +79,10 @@ class ProductListView(generics.ListCreateAPIView):
     """
 
     permission_classes = [permissions.IsAuthenticated]
+
+    # Search functionality
+    search_fields = ['name', 'description', 'serial_num', 'manufacturer_name',]
+    filter_backends = (filters.SearchFilter,)
 
     queryset = models.ProductModel.objects.all()
     serializer_class = serializers.ProductSerializer
