@@ -20,7 +20,7 @@ Markdown==3.1.1
 MarkupSafe==1.1.1
 mccabe==0.6.1
 psycopg2==2.8.4
-Pygments==2.5.2
+Pygments==2.7.4
 pylint==2.4.4
 pylint-django==2.0.13
 pylint-plugin-utils==0.6
